@@ -700,6 +700,33 @@ static const Steinberg_FIDString Steinberg_kPlatformTypeUIView = "UIView";
 static const Steinberg_FIDString Steinberg_kPlatformTypeX11EmbedWindowID = "X11EmbedWindowID";
 static const Steinberg_uint32 Steinberg_kPrintfBufferSize = 4096;
 static const Steinberg_Vst_ParamID Steinberg_Vst_kNoParamId = 0xffffffff;
+static const Steinberg_FIDString Steinberg_Vst_SDKVersionString = "VST 3.7.7";
+static const Steinberg_uint32 Steinberg_Vst_SDKVersionMajor = 3;
+static const Steinberg_uint32 Steinberg_Vst_SDKVersionMinor = 7;
+static const Steinberg_uint32 Steinberg_Vst_SDKVersionSub = 7;
+static const Steinberg_uint32 Steinberg_Vst_SDKVersion = ((3 << 16) | (7 << 8) | 7);
+static const Steinberg_uint32 Steinberg_Vst_SDKVersion_3_7_7 = 0x030707;
+static const Steinberg_uint32 Steinberg_Vst_SDKVersion_3_7_6 = 0x030706;
+static const Steinberg_uint32 Steinberg_Vst_SDKVersion_3_7_5 = 0x030705;
+static const Steinberg_uint32 Steinberg_Vst_SDKVersion_3_7_4 = 0x030704;
+static const Steinberg_uint32 Steinberg_Vst_SDKVersion_3_7_3 = 0x030703;
+static const Steinberg_uint32 Steinberg_Vst_SDKVersion_3_7_2 = 0x030702;
+static const Steinberg_uint32 Steinberg_Vst_SDKVersion_3_7_1 = 0x030701;
+static const Steinberg_uint32 Steinberg_Vst_SDKVersion_3_7_0 = 0x030700;
+static const Steinberg_uint32 Steinberg_Vst_SDKVersion_3_6_14 = 0x03060E;
+static const Steinberg_uint32 Steinberg_Vst_SDKVersion_3_6_13 = 0x03060D;
+static const Steinberg_uint32 Steinberg_Vst_SDKVersion_3_6_12 = 0x03060C;
+static const Steinberg_uint32 Steinberg_Vst_SDKVersion_3_6_11 = 0x03060B;
+static const Steinberg_uint32 Steinberg_Vst_SDKVersion_3_6_10 = 0x03060A;
+static const Steinberg_uint32 Steinberg_Vst_SDKVersion_3_6_9 = 0x030609;
+static const Steinberg_uint32 Steinberg_Vst_SDKVersion_3_6_8 = 0x030608;
+static const Steinberg_uint32 Steinberg_Vst_SDKVersion_3_6_7 = 0x030607;
+static const Steinberg_uint32 Steinberg_Vst_SDKVersion_3_6_6 = 0x030606;
+static const Steinberg_uint32 Steinberg_Vst_SDKVersion_3_6_5 = 0x030605;
+static const Steinberg_uint32 Steinberg_Vst_SDKVersion_3_6_0 = 0x030600;
+static const Steinberg_uint32 Steinberg_Vst_SDKVersion_3_5_0 = 0x030500;
+static const Steinberg_uint32 Steinberg_Vst_SDKVersion_3_1_0 = 0x030100;
+static const Steinberg_uint32 Steinberg_Vst_SDKVersion_3_0_0 = 0x030000;
 static const Steinberg_int32 Steinberg_Vst_kDefaultFactoryFlags = 1 << 4;
 static const Steinberg_Vst_CString Steinberg_Vst_PresetAttributes_kPlugInName = "PlugInName";
 static const Steinberg_Vst_CString Steinberg_Vst_PresetAttributes_kPlugInCategory = "PlugInCategory";
@@ -1831,7 +1858,7 @@ struct Steinberg_Vst_ProgramListInfo
 ----------------------------------------------------------------------------------------------------------------------*/
 
 /*----------------------------------------------------------------------------------------------------------------------
-Source: "pluginterfaces/base/funknown.h", line 368 */
+Source: "pluginterfaces/base/funknown.h", line 374 */
 
 typedef struct Steinberg_FUnknownVtbl
 {
