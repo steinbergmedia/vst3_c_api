@@ -105,6 +105,9 @@ typedef Steinberg_int32 Steinberg_Vst_KnobMode;
 typedef Steinberg_uint32 Steinberg_Vst_ChannelContext_ColorSpec;
 typedef Steinberg_uint8 Steinberg_Vst_ChannelContext_ColorComponent;
 typedef Steinberg_uint32 Steinberg_Vst_PrefetchableSupport;
+typedef Steinberg_uint32 Steinberg_Vst_DataExchangeQueueID;
+typedef Steinberg_uint32 Steinberg_Vst_DataExchangeBlockID;
+typedef Steinberg_uint32 Steinberg_Vst_DataExchangeUserContextID;
 
 
 /*----------------------------------------------------------------------------------------------------------------------
@@ -135,6 +138,7 @@ struct Steinberg_Vst_IEditController;
 struct Steinberg_Vst_IEditController2;
 struct Steinberg_Vst_IMidiMapping;
 struct Steinberg_Vst_IEditControllerHostEditing;
+struct Steinberg_Vst_IComponentHandlerSystemTime;
 struct Steinberg_Vst_IEventList;
 struct Steinberg_Vst_IMessage;
 struct Steinberg_Vst_IConnectionPoint;
@@ -145,6 +149,8 @@ struct Steinberg_Vst_IContextMenu;
 struct Steinberg_Vst_IMidiLearn;
 struct Steinberg_Vst_ChannelContext_IInfoListener;
 struct Steinberg_Vst_IPrefetchableSupport;
+struct Steinberg_Vst_IDataExchangeHandler;
+struct Steinberg_Vst_IDataExchangeReceiver;
 struct Steinberg_Vst_IAutomationState;
 struct Steinberg_Vst_IInterAppAudioHost;
 struct Steinberg_Vst_IInterAppAudioConnectionNotification;
@@ -201,6 +207,7 @@ struct Steinberg_Vst_LegacyMIDICCOutEvent;
 struct Steinberg_Vst_Event;
 struct Steinberg_Vst_RepresentationInfo;
 struct Steinberg_Vst_IContextMenuItem;
+struct Steinberg_Vst_DataExchangeBlock;
 struct Steinberg_Vst_ProcessSetup;
 struct Steinberg_Vst_AudioBusBuffers;
 struct Steinberg_Vst_ProcessData;
@@ -700,11 +707,13 @@ static const Steinberg_FIDString Steinberg_kPlatformTypeUIView = "UIView";
 static const Steinberg_FIDString Steinberg_kPlatformTypeX11EmbedWindowID = "X11EmbedWindowID";
 static const Steinberg_uint32 Steinberg_kPrintfBufferSize = 4096;
 static const Steinberg_Vst_ParamID Steinberg_Vst_kNoParamId = 0xffffffff;
-static const Steinberg_FIDString Steinberg_Vst_SDKVersionString = "VST 3.7.8";
+static const Steinberg_FIDString Steinberg_Vst_SDKVersionString = "VST 3.7.9";
 static const Steinberg_uint32 Steinberg_Vst_SDKVersionMajor = 3;
 static const Steinberg_uint32 Steinberg_Vst_SDKVersionMinor = 7;
-static const Steinberg_uint32 Steinberg_Vst_SDKVersionSub = 8;
-static const Steinberg_uint32 Steinberg_Vst_SDKVersion = ((3 << 16) | (7 << 8) | 8);
+static const Steinberg_uint32 Steinberg_Vst_SDKVersionSub = 9;
+static const Steinberg_uint32 Steinberg_Vst_SDKVersion = ((3 << 16) | (7 << 8) | 9);
+static const Steinberg_uint32 Steinberg_Vst_SDKVersion_3_7_9 = 0x030709;
+static const Steinberg_uint32 Steinberg_Vst_SDKVersion_3_7_8 = 0x030708;
 static const Steinberg_uint32 Steinberg_Vst_SDKVersion_3_7_7 = 0x030707;
 static const Steinberg_uint32 Steinberg_Vst_SDKVersion_3_7_6 = 0x030706;
 static const Steinberg_uint32 Steinberg_Vst_SDKVersion_3_7_5 = 0x030705;
@@ -1078,9 +1087,12 @@ static const Steinberg_Vst_Speaker Steinberg_Vst_kSpeakerBsr = (Steinberg_Vst_Sp
 static const Steinberg_Vst_Speaker Steinberg_Vst_kSpeakerBrl = (Steinberg_Vst_Speaker) 1 << 35;
 static const Steinberg_Vst_Speaker Steinberg_Vst_kSpeakerBrc = (Steinberg_Vst_Speaker) 1 << 36;
 static const Steinberg_Vst_Speaker Steinberg_Vst_kSpeakerBrr = (Steinberg_Vst_Speaker) 1 << 37;
+static const Steinberg_Vst_Speaker Steinberg_Vst_kSpeakerLw = (Steinberg_Vst_Speaker) 1 << 59;
+static const Steinberg_Vst_Speaker Steinberg_Vst_kSpeakerRw = (Steinberg_Vst_Speaker) 1 << 60;
 static const Steinberg_Vst_SpeakerArrangement Steinberg_Vst_SpeakerArr_kEmpty = 0;
 static const Steinberg_Vst_SpeakerArrangement Steinberg_Vst_SpeakerArr_kMono = 1 << 19;
 static const Steinberg_Vst_SpeakerArrangement Steinberg_Vst_SpeakerArr_kStereo = 1 << 0 | 1 << 1;
+static const Steinberg_Vst_SpeakerArrangement Steinberg_Vst_SpeakerArr_kStereoWide = (Steinberg_Vst_Speaker) 1 << 59 | (Steinberg_Vst_Speaker) 1 << 60;
 static const Steinberg_Vst_SpeakerArrangement Steinberg_Vst_SpeakerArr_kStereoSurround = 1 << 4 | 1 << 5;
 static const Steinberg_Vst_SpeakerArrangement Steinberg_Vst_SpeakerArr_kStereoCenter = 1 << 6 | 1 << 7;
 static const Steinberg_Vst_SpeakerArrangement Steinberg_Vst_SpeakerArr_kStereoSide = 1 << 9 | 1 << 10;
@@ -1163,6 +1175,10 @@ static const Steinberg_Vst_SpeakerArrangement Steinberg_Vst_SpeakerArr_k90_4 = 1
 static const Steinberg_Vst_SpeakerArrangement Steinberg_Vst_SpeakerArr_k91_4 = 1 << 0 | 1 << 1 | 1 << 2 | 1 << 4 | 1 << 5 | 1 << 6 | 1 << 7 | 1 << 9 | 1 << 10 | 1 << 12 | 1 << 14 | 1 << 15 | 1 << 17 | 1 << 3;
 static const Steinberg_Vst_SpeakerArrangement Steinberg_Vst_SpeakerArr_k90_6 = 1 << 0 | 1 << 1 | 1 << 2 | 1 << 4 | 1 << 5 | 1 << 6 | 1 << 7 | 1 << 9 | 1 << 10 | 1 << 12 | 1 << 14 | 1 << 15 | 1 << 17 | (Steinberg_Vst_Speaker) 1 << 24 | (Steinberg_Vst_Speaker) 1 << 25;
 static const Steinberg_Vst_SpeakerArrangement Steinberg_Vst_SpeakerArr_k91_6 = 1 << 0 | 1 << 1 | 1 << 2 | 1 << 4 | 1 << 5 | 1 << 6 | 1 << 7 | 1 << 9 | 1 << 10 | 1 << 12 | 1 << 14 | 1 << 15 | 1 << 17 | (Steinberg_Vst_Speaker) 1 << 24 | (Steinberg_Vst_Speaker) 1 << 25 | 1 << 3;
+static const Steinberg_Vst_SpeakerArrangement Steinberg_Vst_SpeakerArr_k90_4_W = 1 << 0 | 1 << 1 | 1 << 2 | 1 << 4 | 1 << 5 | (Steinberg_Vst_Speaker) 1 << 59 | (Steinberg_Vst_Speaker) 1 << 60 | 1 << 9 | 1 << 10 | 1 << 12 | 1 << 14 | 1 << 15 | 1 << 17;
+static const Steinberg_Vst_SpeakerArrangement Steinberg_Vst_SpeakerArr_k91_4_W = 1 << 0 | 1 << 1 | 1 << 2 | 1 << 4 | 1 << 5 | (Steinberg_Vst_Speaker) 1 << 59 | (Steinberg_Vst_Speaker) 1 << 60 | 1 << 9 | 1 << 10 | 1 << 12 | 1 << 14 | 1 << 15 | 1 << 17 | 1 << 3;
+static const Steinberg_Vst_SpeakerArrangement Steinberg_Vst_SpeakerArr_k90_6_W = 1 << 0 | 1 << 1 | 1 << 2 | 1 << 4 | 1 << 5 | (Steinberg_Vst_Speaker) 1 << 59 | (Steinberg_Vst_Speaker) 1 << 60 | 1 << 9 | 1 << 10 | 1 << 12 | 1 << 14 | 1 << 15 | 1 << 17 | (Steinberg_Vst_Speaker) 1 << 24 | (Steinberg_Vst_Speaker) 1 << 25;
+static const Steinberg_Vst_SpeakerArrangement Steinberg_Vst_SpeakerArr_k91_6_W = 1 << 0 | 1 << 1 | 1 << 2 | 1 << 4 | 1 << 5 | (Steinberg_Vst_Speaker) 1 << 59 | (Steinberg_Vst_Speaker) 1 << 60 | 1 << 9 | 1 << 10 | 1 << 12 | 1 << 14 | 1 << 15 | 1 << 17 | (Steinberg_Vst_Speaker) 1 << 24 | (Steinberg_Vst_Speaker) 1 << 25 | 1 << 3;
 static const Steinberg_Vst_SpeakerArrangement Steinberg_Vst_SpeakerArr_k100 = 1 << 0 | 1 << 1 | 1 << 2 | 1 << 4 | 1 << 5 | 1 << 11 | 1 << 12 | 1 << 14 | 1 << 15 | 1 << 17;
 static const Steinberg_Vst_SpeakerArrangement Steinberg_Vst_SpeakerArr_k50_5 = 1 << 0 | 1 << 1 | 1 << 2 | 1 << 4 | 1 << 5 | 1 << 11 | 1 << 12 | 1 << 14 | 1 << 15 | 1 << 17;
 static const Steinberg_Vst_SpeakerArrangement Steinberg_Vst_SpeakerArr_k101 = 1 << 0 | 1 << 1 | 1 << 2 | 1 << 4 | 1 << 5 | 1 << 11 | 1 << 12 | 1 << 14 | 1 << 15 | 1 << 17 | 1 << 3;
@@ -1199,6 +1215,7 @@ static const Steinberg_Vst_SpeakerArrangement Steinberg_Vst_SpeakerArr_k50_4_4 =
 static const Steinberg_Vst_CString Steinberg_Vst_SpeakerArr_kStringEmpty = "";
 static const Steinberg_Vst_CString Steinberg_Vst_SpeakerArr_kStringMono = "Mono";
 static const Steinberg_Vst_CString Steinberg_Vst_SpeakerArr_kStringStereo = "Stereo";
+static const Steinberg_Vst_CString Steinberg_Vst_SpeakerArr_kStringStereoWide = "Stereo (Lw Rw)";
 static const Steinberg_Vst_CString Steinberg_Vst_SpeakerArr_kStringStereoR = "Stereo (Ls Rs)";
 static const Steinberg_Vst_CString Steinberg_Vst_SpeakerArr_kStringStereoC = "Stereo (Lc Rc)";
 static const Steinberg_Vst_CString Steinberg_Vst_SpeakerArr_kStringStereoSide = "Stereo (Sl Sr)";
@@ -1261,10 +1278,14 @@ static const Steinberg_Vst_CString Steinberg_Vst_SpeakerArr_kString70_4 = "7.0.4
 static const Steinberg_Vst_CString Steinberg_Vst_SpeakerArr_kString71_4 = "7.1.4";
 static const Steinberg_Vst_CString Steinberg_Vst_SpeakerArr_kString70_6 = "7.0.6";
 static const Steinberg_Vst_CString Steinberg_Vst_SpeakerArr_kString71_6 = "7.1.6";
-static const Steinberg_Vst_CString Steinberg_Vst_SpeakerArr_kString90_4 = "9.0.4";
-static const Steinberg_Vst_CString Steinberg_Vst_SpeakerArr_kString91_4 = "9.1.4";
-static const Steinberg_Vst_CString Steinberg_Vst_SpeakerArr_kString90_6 = "9.0.6";
-static const Steinberg_Vst_CString Steinberg_Vst_SpeakerArr_kString91_6 = "9.1.6";
+static const Steinberg_Vst_CString Steinberg_Vst_SpeakerArr_kString90_4 = "9.0.4 ITU";
+static const Steinberg_Vst_CString Steinberg_Vst_SpeakerArr_kString91_4 = "9.1.4 ITU";
+static const Steinberg_Vst_CString Steinberg_Vst_SpeakerArr_kString90_6 = "9.0.6 ITU";
+static const Steinberg_Vst_CString Steinberg_Vst_SpeakerArr_kString91_6 = "9.1.6 ITU";
+static const Steinberg_Vst_CString Steinberg_Vst_SpeakerArr_kString90_4_W = "9.0.4";
+static const Steinberg_Vst_CString Steinberg_Vst_SpeakerArr_kString91_4_W = "9.1.4";
+static const Steinberg_Vst_CString Steinberg_Vst_SpeakerArr_kString90_6_W = "9.0.6";
+static const Steinberg_Vst_CString Steinberg_Vst_SpeakerArr_kString91_6_W = "9.1.6";
 static const Steinberg_Vst_CString Steinberg_Vst_SpeakerArr_kString50_5 = "10.0 Auro-3D";
 static const Steinberg_Vst_CString Steinberg_Vst_SpeakerArr_kString51_5 = "10.1 Auro-3D";
 static const Steinberg_Vst_CString Steinberg_Vst_SpeakerArr_kString50_6 = "11.0 Auro-3D";
@@ -1287,15 +1308,16 @@ static const Steinberg_Vst_CString Steinberg_Vst_SpeakerArr_kString50_3_2 = "5.0
 static const Steinberg_Vst_CString Steinberg_Vst_SpeakerArr_kString30_5_2 = "3.0.5.2";
 static const Steinberg_Vst_CString Steinberg_Vst_SpeakerArr_kString40_4_4 = "4.0.4.4";
 static const Steinberg_Vst_CString Steinberg_Vst_SpeakerArr_kString50_4_4 = "5.0.4.4";
-static const Steinberg_Vst_CString Steinberg_Vst_SpeakerArr_kStringAmbi1stOrder = "1st Order Ambisonics";
-static const Steinberg_Vst_CString Steinberg_Vst_SpeakerArr_kStringAmbi2cdOrder = "2nd Order Ambisonics";
-static const Steinberg_Vst_CString Steinberg_Vst_SpeakerArr_kStringAmbi3rdOrder = "3rd Order Ambisonics";
-static const Steinberg_Vst_CString Steinberg_Vst_SpeakerArr_kStringAmbi4thOrder = "4th Order Ambisonics";
-static const Steinberg_Vst_CString Steinberg_Vst_SpeakerArr_kStringAmbi5thOrder = "5th Order Ambisonics";
-static const Steinberg_Vst_CString Steinberg_Vst_SpeakerArr_kStringAmbi6thOrder = "6th Order Ambisonics";
-static const Steinberg_Vst_CString Steinberg_Vst_SpeakerArr_kStringAmbi7thOrder = "7th Order Ambisonics";
+static const Steinberg_Vst_CString Steinberg_Vst_SpeakerArr_kStringAmbi1stOrder = "1OA";
+static const Steinberg_Vst_CString Steinberg_Vst_SpeakerArr_kStringAmbi2cdOrder = "2OA";
+static const Steinberg_Vst_CString Steinberg_Vst_SpeakerArr_kStringAmbi3rdOrder = "3OA";
+static const Steinberg_Vst_CString Steinberg_Vst_SpeakerArr_kStringAmbi4thOrder = "4OA";
+static const Steinberg_Vst_CString Steinberg_Vst_SpeakerArr_kStringAmbi5thOrder = "5OA";
+static const Steinberg_Vst_CString Steinberg_Vst_SpeakerArr_kStringAmbi6thOrder = "6OA";
+static const Steinberg_Vst_CString Steinberg_Vst_SpeakerArr_kStringAmbi7thOrder = "7OA";
 static const Steinberg_Vst_CString Steinberg_Vst_SpeakerArr_kStringMonoS = "M";
 static const Steinberg_Vst_CString Steinberg_Vst_SpeakerArr_kStringStereoS = "L R";
+static const Steinberg_Vst_CString Steinberg_Vst_SpeakerArr_kStringStereoWideS = "Lw Rw";
 static const Steinberg_Vst_CString Steinberg_Vst_SpeakerArr_kStringStereoRS = "Ls Rs";
 static const Steinberg_Vst_CString Steinberg_Vst_SpeakerArr_kStringStereoCS = "Lc Rc";
 static const Steinberg_Vst_CString Steinberg_Vst_SpeakerArr_kStringStereoSS = "Sl Sr";
@@ -1356,6 +1378,10 @@ static const Steinberg_Vst_CString Steinberg_Vst_SpeakerArr_kString90_4S = "L R 
 static const Steinberg_Vst_CString Steinberg_Vst_SpeakerArr_kString91_4S = "L R C LFE Ls Rs Lc Rc Sl Sr Tfl Tfr Trl Trr";
 static const Steinberg_Vst_CString Steinberg_Vst_SpeakerArr_kString90_6S = "L R C Ls Rs Lc Rc Sl Sr Tfl Tfr Trl Trr Tsl Tsr";
 static const Steinberg_Vst_CString Steinberg_Vst_SpeakerArr_kString91_6S = "L R C LFE Ls Rs Lc Rc Sl Sr Tfl Tfr Trl Trr Tsl Tsr";
+static const Steinberg_Vst_CString Steinberg_Vst_SpeakerArr_kString90_4_WS = "L R C Ls Rs Sl Sr Tfl Tfr Trl Trr Lw Rw";
+static const Steinberg_Vst_CString Steinberg_Vst_SpeakerArr_kString91_4_WS = "L R C LFE Ls Rs Sl Sr Tfl Tfr Trl Trr Lw Rw";
+static const Steinberg_Vst_CString Steinberg_Vst_SpeakerArr_kString90_6_WS = "L R C Ls Rs Sl Sr Tfl Tfr Trl Trr Tsl Tsr Lw Rw";
+static const Steinberg_Vst_CString Steinberg_Vst_SpeakerArr_kString91_6_WS = "L R C LFE Ls Rs Sl Sr Tfl Tfr Trl Trr Tsl Tsr Lw Rw";
 static const Steinberg_Vst_CString Steinberg_Vst_SpeakerArr_kString50_5S = "L R C Ls Rs Tc Tfl Tfr Trl Trr";
 static const Steinberg_Vst_CString Steinberg_Vst_SpeakerArr_kString51_5S = "L R C LFE Ls Rs Tc Tfl Tfr Trl Trr";
 static const Steinberg_Vst_CString Steinberg_Vst_SpeakerArr_kString50_5_SonyS = "L R C Ls Rs Tfl Tfc Tfr Trl Trr";
@@ -1433,6 +1459,8 @@ static const Steinberg_Vst_CString Steinberg_Vst_ChannelContext_kChannelIndexNam
 static const Steinberg_Vst_CString Steinberg_Vst_ChannelContext_kChannelIndexNamespaceLengthKey = "channel index namespace length";
 static const Steinberg_Vst_CString Steinberg_Vst_ChannelContext_kChannelImageKey = "channel image";
 static const Steinberg_Vst_CString Steinberg_Vst_ChannelContext_kChannelPluginLocationKey = "channel plugin location";
+static const Steinberg_Vst_DataExchangeQueueID Steinberg_Vst_InvalidDataExchangeQueueID = INT32_MAX;
+static const Steinberg_Vst_DataExchangeBlockID Steinberg_Vst_InvalidDataExchangeBlockID = INT32_MAX;
 static const Steinberg_Vst_CString Steinberg_Vst_PlugType_kFx = "Fx";
 static const Steinberg_Vst_CString Steinberg_Vst_PlugType_kFxAnalyzer = "Fx|Analyzer";
 static const Steinberg_Vst_CString Steinberg_Vst_PlugType_kFxDelay = "Fx|Delay";
@@ -1842,6 +1870,16 @@ struct Steinberg_Vst_IContextMenuItem
     Steinberg_Vst_String128 name;
     Steinberg_int32 tag;
     Steinberg_int32 flags;
+};
+
+/*----------------------------------------------------------------------------------------------------------------------
+Source: "pluginterfaces/vst/ivstdataexchange.h", line 42 */
+
+struct Steinberg_Vst_DataExchangeBlock
+{
+    void* data;
+    Steinberg_uint32 size;
+    Steinberg_Vst_DataExchangeBlockID blockID;
 };
 
 /*----------------------------------------------------------------------------------------------------------------------
@@ -2526,6 +2564,28 @@ typedef struct Steinberg_Vst_IEditControllerHostEditing
 static const Steinberg_TUID Steinberg_Vst_IEditControllerHostEditing_iid = SMTG_INLINE_UID (0xC1271208, 0x70594098, 0xB9DD34B3, 0x6BB0195E);
 
 /*----------------------------------------------------------------------------------------------------------------------
+Source: "pluginterfaces/vst/ivsteditcontroller.h", line 625 */
+
+typedef struct Steinberg_Vst_IComponentHandlerSystemTimeVtbl
+{
+    /* methods derived from "Steinberg_FUnknown": */
+    Steinberg_tresult (SMTG_STDMETHODCALLTYPE* queryInterface) (void* thisInterface, const Steinberg_TUID iid, void** obj);
+    Steinberg_uint32 (SMTG_STDMETHODCALLTYPE* addRef) (void* thisInterface);
+    Steinberg_uint32 (SMTG_STDMETHODCALLTYPE* release) (void* thisInterface);
+
+    /* methods defined in "Steinberg_Vst_IComponentHandlerSystemTime": */
+    Steinberg_tresult (SMTG_STDMETHODCALLTYPE* getSystemTime) (void* thisInterface, Steinberg_int64* systemTime);
+
+} Steinberg_Vst_IComponentHandlerSystemTimeVtbl;
+
+typedef struct Steinberg_Vst_IComponentHandlerSystemTime
+{
+    struct Steinberg_Vst_IComponentHandlerSystemTimeVtbl* lpVtbl;
+} Steinberg_Vst_IComponentHandlerSystemTime;
+
+static const Steinberg_TUID Steinberg_Vst_IComponentHandlerSystemTime_iid = SMTG_INLINE_UID (0xF9E53056, 0xD1554CD5, 0xB7695E1B, 0x7B0F7745);
+
+/*----------------------------------------------------------------------------------------------------------------------
 Source: "pluginterfaces/vst/ivstevents.h", line 196 */
 
 typedef struct Steinberg_Vst_IEventListVtbl
@@ -2754,6 +2814,55 @@ typedef struct Steinberg_Vst_IPrefetchableSupport
 } Steinberg_Vst_IPrefetchableSupport;
 
 static const Steinberg_TUID Steinberg_Vst_IPrefetchableSupport_iid = SMTG_INLINE_UID (0x8AE54FDA, 0xE93046B9, 0xA28555BC, 0xDC98E21E);
+
+/*----------------------------------------------------------------------------------------------------------------------
+Source: "pluginterfaces/vst/ivstdataexchange.h", line 93 */
+
+typedef struct Steinberg_Vst_IDataExchangeHandlerVtbl
+{
+    /* methods derived from "Steinberg_FUnknown": */
+    Steinberg_tresult (SMTG_STDMETHODCALLTYPE* queryInterface) (void* thisInterface, const Steinberg_TUID iid, void** obj);
+    Steinberg_uint32 (SMTG_STDMETHODCALLTYPE* addRef) (void* thisInterface);
+    Steinberg_uint32 (SMTG_STDMETHODCALLTYPE* release) (void* thisInterface);
+
+    /* methods defined in "Steinberg_Vst_IDataExchangeHandler": */
+    Steinberg_tresult (SMTG_STDMETHODCALLTYPE* openQueue) (void* thisInterface, struct Steinberg_Vst_IAudioProcessor* processor, Steinberg_uint32 blockSize, Steinberg_uint32 numBlocks, Steinberg_uint32 alignment, Steinberg_Vst_DataExchangeUserContextID userContextID, Steinberg_Vst_DataExchangeQueueID* outID);
+    Steinberg_tresult (SMTG_STDMETHODCALLTYPE* closeQueue) (void* thisInterface, Steinberg_Vst_DataExchangeQueueID queueID);
+    Steinberg_tresult (SMTG_STDMETHODCALLTYPE* lockBlock) (void* thisInterface, Steinberg_Vst_DataExchangeQueueID queueId, struct Steinberg_Vst_DataExchangeBlock* block);
+    Steinberg_tresult (SMTG_STDMETHODCALLTYPE* freeBlock) (void* thisInterface, Steinberg_Vst_DataExchangeQueueID queueId, Steinberg_Vst_DataExchangeBlockID blockID, Steinberg_TBool sendToController);
+
+} Steinberg_Vst_IDataExchangeHandlerVtbl;
+
+typedef struct Steinberg_Vst_IDataExchangeHandler
+{
+    struct Steinberg_Vst_IDataExchangeHandlerVtbl* lpVtbl;
+} Steinberg_Vst_IDataExchangeHandler;
+
+static const Steinberg_TUID Steinberg_Vst_IDataExchangeHandler_iid = SMTG_INLINE_UID (0x36D551BD, 0x6FF54F08, 0xB48E830D, 0x8BD5A03B);
+
+/*----------------------------------------------------------------------------------------------------------------------
+Source: "pluginterfaces/vst/ivstdataexchange.h", line 168 */
+
+typedef struct Steinberg_Vst_IDataExchangeReceiverVtbl
+{
+    /* methods derived from "Steinberg_FUnknown": */
+    Steinberg_tresult (SMTG_STDMETHODCALLTYPE* queryInterface) (void* thisInterface, const Steinberg_TUID iid, void** obj);
+    Steinberg_uint32 (SMTG_STDMETHODCALLTYPE* addRef) (void* thisInterface);
+    Steinberg_uint32 (SMTG_STDMETHODCALLTYPE* release) (void* thisInterface);
+
+    /* methods defined in "Steinberg_Vst_IDataExchangeReceiver": */
+    void (SMTG_STDMETHODCALLTYPE* queueOpened) (void* thisInterface, Steinberg_Vst_DataExchangeUserContextID userContextID, Steinberg_uint32 blockSize, Steinberg_TBool* dispatchOnBackgroundThread);
+    void (SMTG_STDMETHODCALLTYPE* queueClosed) (void* thisInterface, Steinberg_Vst_DataExchangeUserContextID userContextID);
+    void (SMTG_STDMETHODCALLTYPE* onDataExchangeBlocksReceived) (void* thisInterface, Steinberg_Vst_DataExchangeUserContextID userContextID, Steinberg_uint32 numBlocks, struct Steinberg_Vst_DataExchangeBlock* blocks, Steinberg_TBool onBackgroundThread);
+
+} Steinberg_Vst_IDataExchangeReceiverVtbl;
+
+typedef struct Steinberg_Vst_IDataExchangeReceiver
+{
+    struct Steinberg_Vst_IDataExchangeReceiverVtbl* lpVtbl;
+} Steinberg_Vst_IDataExchangeReceiver;
+
+static const Steinberg_TUID Steinberg_Vst_IDataExchangeReceiver_iid = SMTG_INLINE_UID (0x45A759DC, 0x84FA4907, 0xABCB6175, 0x2FC786B6);
 
 /*----------------------------------------------------------------------------------------------------------------------
 Source: "pluginterfaces/vst/ivstautomationstate.h", line 39 */
