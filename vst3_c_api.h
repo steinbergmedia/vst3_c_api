@@ -635,7 +635,7 @@ typedef enum
 } Steinberg_Vst_IAutomationState_AutomationStates;
 
 /*----------------------------------------------------------------------------------------------------------------------
-Source: "pluginterfaces/vst/ivstaudioprocessor.h", line 98 */
+Source: "pluginterfaces/vst/ivstaudioprocessor.h", line 103 */
 
 typedef enum
 {
@@ -644,7 +644,7 @@ typedef enum
 } Steinberg_Vst_ComponentFlags;
 
 /*----------------------------------------------------------------------------------------------------------------------
-Source: "pluginterfaces/vst/ivstaudioprocessor.h", line 110 */
+Source: "pluginterfaces/vst/ivstaudioprocessor.h", line 115 */
 
 typedef enum
 {
@@ -653,7 +653,7 @@ typedef enum
 } Steinberg_Vst_SymbolicSampleSizes;
 
 /*----------------------------------------------------------------------------------------------------------------------
-Source: "pluginterfaces/vst/ivstaudioprocessor.h", line 138 */
+Source: "pluginterfaces/vst/ivstaudioprocessor.h", line 143 */
 
 typedef enum
 {
@@ -663,7 +663,7 @@ typedef enum
 } Steinberg_Vst_ProcessModes;
 
 /*----------------------------------------------------------------------------------------------------------------------
-Source: "pluginterfaces/vst/ivstaudioprocessor.h", line 402 */
+Source: "pluginterfaces/vst/ivstaudioprocessor.h", line 407 */
 
 typedef enum
 {
@@ -706,12 +706,15 @@ static const Steinberg_FIDString Steinberg_kPlatformTypeNSView = "NSView";
 static const Steinberg_FIDString Steinberg_kPlatformTypeUIView = "UIView";
 static const Steinberg_FIDString Steinberg_kPlatformTypeX11EmbedWindowID = "X11EmbedWindowID";
 static const Steinberg_uint32 Steinberg_kPrintfBufferSize = 4096;
-static const Steinberg_Vst_ParamID Steinberg_Vst_kNoParamId = 0xffffffff;
-static const Steinberg_FIDString Steinberg_Vst_SDKVersionString = "VST 3.7.9";
+static const Steinberg_Vst_ParamID Steinberg_Vst_kNoParamId = 0xFFFFFFFF;
+static const Steinberg_Vst_ParamID Steinberg_Vst_kMinParamId = 0;
+static const Steinberg_Vst_ParamID Steinberg_Vst_kMaxParamId = 0x7FFFFFFF;
+static const Steinberg_FIDString Steinberg_Vst_SDKVersionString = "VST 3.7.10";
 static const Steinberg_uint32 Steinberg_Vst_SDKVersionMajor = 3;
 static const Steinberg_uint32 Steinberg_Vst_SDKVersionMinor = 7;
-static const Steinberg_uint32 Steinberg_Vst_SDKVersionSub = 9;
-static const Steinberg_uint32 Steinberg_Vst_SDKVersion = ((3 << 16) | (7 << 8) | 9);
+static const Steinberg_uint32 Steinberg_Vst_SDKVersionSub = 10;
+static const Steinberg_uint32 Steinberg_Vst_SDKVersion = ((3 << 16) | (7 << 8) | 10);
+static const Steinberg_uint32 Steinberg_Vst_SDKVersion_3_7_10 = 0x03070A;
 static const Steinberg_uint32 Steinberg_Vst_SDKVersion_3_7_9 = 0x030709;
 static const Steinberg_uint32 Steinberg_Vst_SDKVersion_3_7_8 = 0x030708;
 static const Steinberg_uint32 Steinberg_Vst_SDKVersion_3_7_7 = 0x030707;
@@ -1463,15 +1466,20 @@ static const Steinberg_Vst_DataExchangeQueueID Steinberg_Vst_InvalidDataExchange
 static const Steinberg_Vst_DataExchangeBlockID Steinberg_Vst_InvalidDataExchangeBlockID = INT32_MAX;
 static const Steinberg_Vst_CString Steinberg_Vst_PlugType_kFx = "Fx";
 static const Steinberg_Vst_CString Steinberg_Vst_PlugType_kFxAnalyzer = "Fx|Analyzer";
+static const Steinberg_Vst_CString Steinberg_Vst_PlugType_kFxBass = "Fx|Bass";
+static const Steinberg_Vst_CString Steinberg_Vst_PlugType_kFxChannelStrip = "Fx|Channel Strip";
 static const Steinberg_Vst_CString Steinberg_Vst_PlugType_kFxDelay = "Fx|Delay";
 static const Steinberg_Vst_CString Steinberg_Vst_PlugType_kFxDistortion = "Fx|Distortion";
+static const Steinberg_Vst_CString Steinberg_Vst_PlugType_kFxDrums = "Fx|Drums";
 static const Steinberg_Vst_CString Steinberg_Vst_PlugType_kFxDynamics = "Fx|Dynamics";
 static const Steinberg_Vst_CString Steinberg_Vst_PlugType_kFxEQ = "Fx|EQ";
 static const Steinberg_Vst_CString Steinberg_Vst_PlugType_kFxFilter = "Fx|Filter";
 static const Steinberg_Vst_CString Steinberg_Vst_PlugType_kFxGenerator = "Fx|Generator";
+static const Steinberg_Vst_CString Steinberg_Vst_PlugType_kFxGuitar = "Fx|Guitar";
 static const Steinberg_Vst_CString Steinberg_Vst_PlugType_kFxInstrument = "Fx|Instrument";
 static const Steinberg_Vst_CString Steinberg_Vst_PlugType_kFxInstrumentExternal = "Fx|Instrument|External";
 static const Steinberg_Vst_CString Steinberg_Vst_PlugType_kFxMastering = "Fx|Mastering";
+static const Steinberg_Vst_CString Steinberg_Vst_PlugType_kFxMicrophone = "Fx|Microphone";
 static const Steinberg_Vst_CString Steinberg_Vst_PlugType_kFxModulation = "Fx|Modulation";
 static const Steinberg_Vst_CString Steinberg_Vst_PlugType_kFxNetwork = "Fx|Network";
 static const Steinberg_Vst_CString Steinberg_Vst_PlugType_kFxPitchShift = "Fx|Pitch Shift";
@@ -1883,7 +1891,7 @@ struct Steinberg_Vst_DataExchangeBlock
 };
 
 /*----------------------------------------------------------------------------------------------------------------------
-Source: "pluginterfaces/vst/ivstaudioprocessor.h", line 165 */
+Source: "pluginterfaces/vst/ivstaudioprocessor.h", line 170 */
 
 struct Steinberg_Vst_ProcessSetup
 {
@@ -1894,7 +1902,7 @@ struct Steinberg_Vst_ProcessSetup
 };
 
 /*----------------------------------------------------------------------------------------------------------------------
-Source: "pluginterfaces/vst/ivstaudioprocessor.h", line 191 */
+Source: "pluginterfaces/vst/ivstaudioprocessor.h", line 196 */
 
 struct Steinberg_Vst_AudioBusBuffers
 {
@@ -1908,7 +1916,7 @@ struct Steinberg_Vst_AudioBusBuffers
 };
 
 /*----------------------------------------------------------------------------------------------------------------------
-Source: "pluginterfaces/vst/ivstaudioprocessor.h", line 213 */
+Source: "pluginterfaces/vst/ivstaudioprocessor.h", line 218 */
 
 struct Steinberg_Vst_ProcessData
 {
@@ -2963,7 +2971,7 @@ typedef struct Steinberg_Vst_IInterAppAudioPresetManager
 static const Steinberg_TUID Steinberg_Vst_IInterAppAudioPresetManager_iid = SMTG_INLINE_UID (0xADE6FCC4, 0x46C94E1D, 0xB3B49A80, 0xC93FEFDD);
 
 /*----------------------------------------------------------------------------------------------------------------------
-Source: "pluginterfaces/vst/ivstaudioprocessor.h", line 258 */
+Source: "pluginterfaces/vst/ivstaudioprocessor.h", line 263 */
 
 typedef struct Steinberg_Vst_IAudioProcessorVtbl
 {
@@ -2992,7 +3000,7 @@ typedef struct Steinberg_Vst_IAudioProcessor
 static const Steinberg_TUID Steinberg_Vst_IAudioProcessor_iid = SMTG_INLINE_UID (0x42043F99, 0xB7DA453C, 0xA569E79D, 0x9AAEC33D);
 
 /*----------------------------------------------------------------------------------------------------------------------
-Source: "pluginterfaces/vst/ivstaudioprocessor.h", line 366 */
+Source: "pluginterfaces/vst/ivstaudioprocessor.h", line 371 */
 
 typedef struct Steinberg_Vst_IAudioPresentationLatencyVtbl
 {
@@ -3014,7 +3022,7 @@ typedef struct Steinberg_Vst_IAudioPresentationLatency
 static const Steinberg_TUID Steinberg_Vst_IAudioPresentationLatency_iid = SMTG_INLINE_UID (0x309ECE78, 0xEB7D4fae, 0x8B2225D9, 0x09FD08B6);
 
 /*----------------------------------------------------------------------------------------------------------------------
-Source: "pluginterfaces/vst/ivstaudioprocessor.h", line 399 */
+Source: "pluginterfaces/vst/ivstaudioprocessor.h", line 404 */
 
 typedef struct Steinberg_Vst_IProcessContextRequirementsVtbl
 {
