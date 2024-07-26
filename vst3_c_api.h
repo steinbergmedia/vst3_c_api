@@ -341,7 +341,7 @@ typedef enum
 } Steinberg_PClassInfo_ClassCardinality;
 
 /*----------------------------------------------------------------------------------------------------------------------
-Source: "pluginterfaces/vst/ivstcomponent.h", line 64 */
+Source: "pluginterfaces/vst/ivstcomponent.h", line 65 */
 
 typedef enum
 {
@@ -351,7 +351,7 @@ typedef enum
 } Steinberg_Vst_MediaTypes;
 
 /*----------------------------------------------------------------------------------------------------------------------
-Source: "pluginterfaces/vst/ivstcomponent.h", line 73 */
+Source: "pluginterfaces/vst/ivstcomponent.h", line 74 */
 
 typedef enum
 {
@@ -360,7 +360,7 @@ typedef enum
 } Steinberg_Vst_BusDirections;
 
 /*----------------------------------------------------------------------------------------------------------------------
-Source: "pluginterfaces/vst/ivstcomponent.h", line 81 */
+Source: "pluginterfaces/vst/ivstcomponent.h", line 82 */
 
 typedef enum
 {
@@ -369,7 +369,7 @@ typedef enum
 } Steinberg_Vst_BusTypes;
 
 /*----------------------------------------------------------------------------------------------------------------------
-Source: "pluginterfaces/vst/ivstcomponent.h", line 103 */
+Source: "pluginterfaces/vst/ivstcomponent.h", line 104 */
 
 typedef enum
 {
@@ -378,7 +378,7 @@ typedef enum
 } Steinberg_Vst_BusInfo_BusFlags;
 
 /*----------------------------------------------------------------------------------------------------------------------
-Source: "pluginterfaces/vst/ivstcomponent.h", line 121 */
+Source: "pluginterfaces/vst/ivstcomponent.h", line 122 */
 
 typedef enum
 {
@@ -388,7 +388,7 @@ typedef enum
 } Steinberg_Vst_IoModes;
 
 /*----------------------------------------------------------------------------------------------------------------------
-Source: "pluginterfaces/vst/ivsteditcontroller.h", line 59 */
+Source: "pluginterfaces/vst/ivsteditcontroller.h", line 63 */
 
 typedef enum
 {
@@ -403,7 +403,7 @@ typedef enum
 } Steinberg_Vst_ParameterInfo_ParameterFlags;
 
 /*----------------------------------------------------------------------------------------------------------------------
-Source: "pluginterfaces/vst/ivsteditcontroller.h", line 86 */
+Source: "pluginterfaces/vst/ivsteditcontroller.h", line 112 */
 
 typedef enum
 {
@@ -422,7 +422,7 @@ typedef enum
 } Steinberg_Vst_RestartFlags;
 
 /*----------------------------------------------------------------------------------------------------------------------
-Source: "pluginterfaces/vst/ivsteditcontroller.h", line 379 */
+Source: "pluginterfaces/vst/ivsteditcontroller.h", line 413 */
 
 typedef enum
 {
@@ -431,7 +431,7 @@ typedef enum
 } Steinberg_Vst_IProgress_ProgressType;
 
 /*----------------------------------------------------------------------------------------------------------------------
-Source: "pluginterfaces/vst/ivsteditcontroller.h", line 467 */
+Source: "pluginterfaces/vst/ivsteditcontroller.h", line 527 */
 
 typedef enum
 {
@@ -711,11 +711,12 @@ static const Steinberg_uint32 Steinberg_kPrintfBufferSize = 4096;
 static const Steinberg_Vst_ParamID Steinberg_Vst_kNoParamId = 0xFFFFFFFF;
 static const Steinberg_Vst_ParamID Steinberg_Vst_kMinParamId = 0;
 static const Steinberg_Vst_ParamID Steinberg_Vst_kMaxParamId = 0x7FFFFFFF;
-static const Steinberg_FIDString Steinberg_Vst_SDKVersionString = "VST 3.7.11";
+static const Steinberg_FIDString Steinberg_Vst_SDKVersionString = "VST 3.7.12";
 static const Steinberg_uint32 Steinberg_Vst_SDKVersionMajor = 3;
 static const Steinberg_uint32 Steinberg_Vst_SDKVersionMinor = 7;
-static const Steinberg_uint32 Steinberg_Vst_SDKVersionSub = 11;
-static const Steinberg_uint32 Steinberg_Vst_SDKVersion = ((3 << 16) | (7 << 8) | 11);
+static const Steinberg_uint32 Steinberg_Vst_SDKVersionSub = 12;
+static const Steinberg_uint32 Steinberg_Vst_SDKVersion = ((3 << 16) | (7 << 8) | 12);
+static const Steinberg_uint32 Steinberg_Vst_SDKVersion_3_7_12 = 0x03070C;
 static const Steinberg_uint32 Steinberg_Vst_SDKVersion_3_7_11 = 0x03070B;
 static const Steinberg_uint32 Steinberg_Vst_SDKVersion_3_7_10 = 0x03070A;
 static const Steinberg_uint32 Steinberg_Vst_SDKVersion_3_7_9 = 0x030709;
@@ -1170,6 +1171,8 @@ static const Steinberg_Vst_SpeakerArrangement Steinberg_Vst_SpeakerArr_k51_4_1 =
 static const Steinberg_Vst_SpeakerArrangement Steinberg_Vst_SpeakerArr_k70_2 = 1 << 0 | 1 << 1 | 1 << 2 | 1 << 4 | 1 << 5 | 1 << 9 | 1 << 10 | (Steinberg_Vst_Speaker) 1 << 24 | (Steinberg_Vst_Speaker) 1 << 25;
 static const Steinberg_Vst_SpeakerArrangement Steinberg_Vst_SpeakerArr_k71_2 = 1 << 0 | 1 << 1 | 1 << 2 | 1 << 4 | 1 << 5 | 1 << 9 | 1 << 10 | (Steinberg_Vst_Speaker) 1 << 24 | (Steinberg_Vst_Speaker) 1 << 25 | 1 << 3;
 static const Steinberg_Vst_SpeakerArrangement Steinberg_Vst_SpeakerArr_k91Atmos = 1 << 0 | 1 << 1 | 1 << 2 | 1 << 4 | 1 << 5 | 1 << 9 | 1 << 10 | (Steinberg_Vst_Speaker) 1 << 24 | (Steinberg_Vst_Speaker) 1 << 25 | 1 << 3;
+static const Steinberg_Vst_SpeakerArrangement Steinberg_Vst_SpeakerArr_k70_2_TF = 1 << 0 | 1 << 1 | 1 << 2 | 1 << 4 | 1 << 5 | 1 << 9 | 1 << 10 | 1 << 12 | 1 << 14;
+static const Steinberg_Vst_SpeakerArrangement Steinberg_Vst_SpeakerArr_k71_2_TF = 1 << 0 | 1 << 1 | 1 << 2 | 1 << 4 | 1 << 5 | 1 << 9 | 1 << 10 | 1 << 12 | 1 << 14 | 1 << 3;
 static const Steinberg_Vst_SpeakerArrangement Steinberg_Vst_SpeakerArr_k70_3 = 1 << 0 | 1 << 1 | 1 << 2 | 1 << 4 | 1 << 5 | 1 << 9 | 1 << 10 | 1 << 12 | 1 << 14 | 1 << 16;
 static const Steinberg_Vst_SpeakerArrangement Steinberg_Vst_SpeakerArr_k72_3 = 1 << 0 | 1 << 1 | 1 << 2 | 1 << 4 | 1 << 5 | 1 << 9 | 1 << 10 | 1 << 12 | 1 << 14 | 1 << 16 | 1 << 3 | 1 << 18;
 static const Steinberg_Vst_SpeakerArrangement Steinberg_Vst_SpeakerArr_k70_4 = 1 << 0 | 1 << 1 | 1 << 2 | 1 << 4 | 1 << 5 | 1 << 9 | 1 << 10 | 1 << 12 | 1 << 14 | 1 << 15 | 1 << 17;
@@ -1278,6 +1281,8 @@ static const Steinberg_Vst_CString Steinberg_Vst_SpeakerArr_kString50_4_1 = "5.0
 static const Steinberg_Vst_CString Steinberg_Vst_SpeakerArr_kString51_4_1 = "5.1.4.1";
 static const Steinberg_Vst_CString Steinberg_Vst_SpeakerArr_kString70_2 = "7.0.2";
 static const Steinberg_Vst_CString Steinberg_Vst_SpeakerArr_kString71_2 = "7.1.2";
+static const Steinberg_Vst_CString Steinberg_Vst_SpeakerArr_kString70_2_TF = "7.0.2 Top Front";
+static const Steinberg_Vst_CString Steinberg_Vst_SpeakerArr_kString71_2_TF = "7.1.2 Top Front";
 static const Steinberg_Vst_CString Steinberg_Vst_SpeakerArr_kString70_3 = "7.0.3";
 static const Steinberg_Vst_CString Steinberg_Vst_SpeakerArr_kString72_3 = "7.2.3";
 static const Steinberg_Vst_CString Steinberg_Vst_SpeakerArr_kString70_4 = "7.0.4";
@@ -1374,6 +1379,8 @@ static const Steinberg_Vst_CString Steinberg_Vst_SpeakerArr_kString50_4_1S = "L 
 static const Steinberg_Vst_CString Steinberg_Vst_SpeakerArr_kString51_4_1S = "L R C LFE Ls Rs Tfl Tfr Trl Trr Bfc";
 static const Steinberg_Vst_CString Steinberg_Vst_SpeakerArr_kString70_2S = "L R C Ls Rs Sl Sr Tsl Tsr";
 static const Steinberg_Vst_CString Steinberg_Vst_SpeakerArr_kString71_2S = "L R C LFE Ls Rs Sl Sr Tsl Tsr";
+static const Steinberg_Vst_CString Steinberg_Vst_SpeakerArr_kString70_2_TFS = "L R C Ls Rs Sl Sr Tfl Tfr";
+static const Steinberg_Vst_CString Steinberg_Vst_SpeakerArr_kString71_2_TFS = "L R C LFE Ls Rs Sl Sr Tfl Tfr";
 static const Steinberg_Vst_CString Steinberg_Vst_SpeakerArr_kString70_3S = "L R C Ls Rs Sl Sr Tfl Tfr Trc";
 static const Steinberg_Vst_CString Steinberg_Vst_SpeakerArr_kString72_3S = "L R C LFE Ls Rs Sl Sr Tfl Tfr Trc LFE2";
 static const Steinberg_Vst_CString Steinberg_Vst_SpeakerArr_kString70_4S = "L R C Ls Rs Sl Sr Tfl Tfr Trl Trr";
@@ -1679,7 +1686,7 @@ struct Steinberg_PClassInfoW
 };
 
 /*----------------------------------------------------------------------------------------------------------------------
-Source: "pluginterfaces/vst/ivstcomponent.h", line 92 */
+Source: "pluginterfaces/vst/ivstcomponent.h", line 93 */
 
 struct Steinberg_Vst_BusInfo
 {
@@ -1692,7 +1699,7 @@ struct Steinberg_Vst_BusInfo
 };
 
 /*----------------------------------------------------------------------------------------------------------------------
-Source: "pluginterfaces/vst/ivstcomponent.h", line 135 */
+Source: "pluginterfaces/vst/ivstcomponent.h", line 136 */
 
 struct Steinberg_Vst_RoutingInfo
 {
@@ -1964,7 +1971,7 @@ struct Steinberg_Vst_ProgramListInfo
 ----------------------------------------------------------------------------------------------------------------------*/
 
 /*----------------------------------------------------------------------------------------------------------------------
-Source: "pluginterfaces/base/funknown.h", line 374 */
+Source: "pluginterfaces/base/funknown.h", line 369 */
 
 typedef struct Steinberg_FUnknownVtbl
 {
@@ -2286,7 +2293,7 @@ typedef struct Steinberg_IPluginFactory3
 static const Steinberg_TUID Steinberg_IPluginFactory3_iid = SMTG_INLINE_UID (0x4555A2AB, 0xC1234E57, 0x9B122910, 0x36878931);
 
 /*----------------------------------------------------------------------------------------------------------------------
-Source: "pluginterfaces/vst/ivstcomponent.h", line 157 */
+Source: "pluginterfaces/vst/ivstcomponent.h", line 158 */
 
 typedef struct Steinberg_Vst_IComponentVtbl
 {
@@ -2394,7 +2401,7 @@ typedef struct Steinberg_Vst_IRemapParamID
 static const Steinberg_TUID Steinberg_Vst_IRemapParamID_iid = SMTG_INLINE_UID (0x2B88021E, 0x6286B646, 0xB49DF76A, 0x5663061C);
 
 /*----------------------------------------------------------------------------------------------------------------------
-Source: "pluginterfaces/vst/ivsteditcontroller.h", line 185 */
+Source: "pluginterfaces/vst/ivsteditcontroller.h", line 213 */
 
 typedef struct Steinberg_Vst_IComponentHandlerVtbl
 {
@@ -2419,7 +2426,7 @@ typedef struct Steinberg_Vst_IComponentHandler
 static const Steinberg_TUID Steinberg_Vst_IComponentHandler_iid = SMTG_INLINE_UID (0x93A0BEA3, 0x0BD045DB, 0x8E890B0C, 0xC1E46AC6);
 
 /*----------------------------------------------------------------------------------------------------------------------
-Source: "pluginterfaces/vst/ivsteditcontroller.h", line 269 */
+Source: "pluginterfaces/vst/ivsteditcontroller.h", line 299 */
 
 typedef struct Steinberg_Vst_IComponentHandler2Vtbl
 {
@@ -2444,7 +2451,7 @@ typedef struct Steinberg_Vst_IComponentHandler2
 static const Steinberg_TUID Steinberg_Vst_IComponentHandler2_iid = SMTG_INLINE_UID (0xF040B4B3, 0xA36045EC, 0xABCDC045, 0xB4D5A2CC);
 
 /*----------------------------------------------------------------------------------------------------------------------
-Source: "pluginterfaces/vst/ivsteditcontroller.h", line 320 */
+Source: "pluginterfaces/vst/ivsteditcontroller.h", line 353 */
 
 typedef struct Steinberg_Vst_IComponentHandlerBusActivationVtbl
 {
@@ -2466,7 +2473,7 @@ typedef struct Steinberg_Vst_IComponentHandlerBusActivation
 static const Steinberg_TUID Steinberg_Vst_IComponentHandlerBusActivation_iid = SMTG_INLINE_UID (0x067D02C1, 0x5B4E274D, 0xA92D90FD, 0x6EAF7240);
 
 /*----------------------------------------------------------------------------------------------------------------------
-Source: "pluginterfaces/vst/ivsteditcontroller.h", line 375 */
+Source: "pluginterfaces/vst/ivsteditcontroller.h", line 409 */
 
 typedef struct Steinberg_Vst_IProgressVtbl
 {
@@ -2490,7 +2497,7 @@ typedef struct Steinberg_Vst_IProgress
 static const Steinberg_TUID Steinberg_Vst_IProgress_iid = SMTG_INLINE_UID (0x00C9DC5B, 0x9D904254, 0x91A388C8, 0xB4E91B69);
 
 /*----------------------------------------------------------------------------------------------------------------------
-Source: "pluginterfaces/vst/ivsteditcontroller.h", line 412 */
+Source: "pluginterfaces/vst/ivsteditcontroller.h", line 452 */
 
 typedef struct Steinberg_Vst_IEditControllerVtbl
 {
@@ -2528,7 +2535,7 @@ typedef struct Steinberg_Vst_IEditController
 static const Steinberg_TUID Steinberg_Vst_IEditController_iid = SMTG_INLINE_UID (0xDCD7BBE3, 0x7742448D, 0xA874AACC, 0x979C759E);
 
 /*----------------------------------------------------------------------------------------------------------------------
-Source: "pluginterfaces/vst/ivsteditcontroller.h", line 495 */
+Source: "pluginterfaces/vst/ivsteditcontroller.h", line 547 */
 
 typedef struct Steinberg_Vst_IEditController2Vtbl
 {
@@ -2552,7 +2559,7 @@ typedef struct Steinberg_Vst_IEditController2
 static const Steinberg_TUID Steinberg_Vst_IEditController2_iid = SMTG_INLINE_UID (0x7F4EFE59, 0xF3204967, 0xAC27A3AE, 0xAFB63038);
 
 /*----------------------------------------------------------------------------------------------------------------------
-Source: "pluginterfaces/vst/ivsteditcontroller.h", line 571 */
+Source: "pluginterfaces/vst/ivsteditcontroller.h", line 629 */
 
 typedef struct Steinberg_Vst_IMidiMappingVtbl
 {
@@ -2574,7 +2581,7 @@ typedef struct Steinberg_Vst_IMidiMapping
 static const Steinberg_TUID Steinberg_Vst_IMidiMapping_iid = SMTG_INLINE_UID (0xDF0FF9F7, 0x49B74669, 0xB63AB732, 0x7ADBF5E5);
 
 /*----------------------------------------------------------------------------------------------------------------------
-Source: "pluginterfaces/vst/ivsteditcontroller.h", line 615 */
+Source: "pluginterfaces/vst/ivsteditcontroller.h", line 677 */
 
 typedef struct Steinberg_Vst_IEditControllerHostEditingVtbl
 {
@@ -2597,7 +2604,7 @@ typedef struct Steinberg_Vst_IEditControllerHostEditing
 static const Steinberg_TUID Steinberg_Vst_IEditControllerHostEditing_iid = SMTG_INLINE_UID (0xC1271208, 0x70594098, 0xB9DD34B3, 0x6BB0195E);
 
 /*----------------------------------------------------------------------------------------------------------------------
-Source: "pluginterfaces/vst/ivsteditcontroller.h", line 639 */
+Source: "pluginterfaces/vst/ivsteditcontroller.h", line 702 */
 
 typedef struct Steinberg_Vst_IComponentHandlerSystemTimeVtbl
 {
