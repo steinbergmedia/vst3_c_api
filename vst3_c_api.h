@@ -274,7 +274,7 @@ typedef enum
 } Steinberg_IBStream_IStreamSeekMode;
 
 /*----------------------------------------------------------------------------------------------------------------------
-Source: "pluginterfaces/vst/ivstnoteexpression.h", line 46 */
+Source: "pluginterfaces/vst/ivstnoteexpression.h", line 45 */
 
 typedef enum
 {
@@ -292,7 +292,7 @@ typedef enum
 } Steinberg_Vst_NoteExpressionTypeIDs;
 
 /*----------------------------------------------------------------------------------------------------------------------
-Source: "pluginterfaces/vst/ivstnoteexpression.h", line 139 */
+Source: "pluginterfaces/vst/ivstnoteexpression.h", line 138 */
 
 typedef enum
 {
@@ -303,7 +303,7 @@ typedef enum
 } Steinberg_Vst_NoteExpressionTypeInfo_NoteExpressionTypeFlags;
 
 /*----------------------------------------------------------------------------------------------------------------------
-Source: "pluginterfaces/vst/ivstnoteexpression.h", line 202 */
+Source: "pluginterfaces/vst/ivstnoteexpression.h", line 205 */
 
 typedef enum
 {
@@ -314,7 +314,7 @@ typedef enum
 } Steinberg_Vst_KeyswitchTypeIDs;
 
 /*----------------------------------------------------------------------------------------------------------------------
-Source: "pluginterfaces/vst/ivstphysicalui.h", line 42 */
+Source: "pluginterfaces/vst/ivstphysicalui.h", line 41 */
 
 typedef enum
 {
@@ -436,7 +436,7 @@ typedef enum
 } Steinberg_Vst_IProgress_ProgressType;
 
 /*----------------------------------------------------------------------------------------------------------------------
-Source: "pluginterfaces/vst/ivsteditcontroller.h", line 556 */
+Source: "pluginterfaces/vst/ivsteditcontroller.h", line 555 */
 
 typedef enum
 {
@@ -620,7 +620,7 @@ typedef enum
 } Steinberg_Vst_ChannelContext_ChannelPluginLocation;
 
 /*----------------------------------------------------------------------------------------------------------------------
-Source: "pluginterfaces/vst/ivstprefetchablesupport.h", line 39 */
+Source: "pluginterfaces/vst/ivstprefetchablesupport.h", line 38 */
 
 typedef enum
 {
@@ -642,7 +642,7 @@ typedef enum
 } Steinberg_Vst_IAutomationState_AutomationStates;
 
 /*----------------------------------------------------------------------------------------------------------------------
-Source: "pluginterfaces/vst/ivstaudioprocessor.h", line 103 */
+Source: "pluginterfaces/vst/ivstaudioprocessor.h", line 101 */
 
 typedef enum
 {
@@ -651,7 +651,7 @@ typedef enum
 } Steinberg_Vst_ComponentFlags;
 
 /*----------------------------------------------------------------------------------------------------------------------
-Source: "pluginterfaces/vst/ivstaudioprocessor.h", line 115 */
+Source: "pluginterfaces/vst/ivstaudioprocessor.h", line 113 */
 
 typedef enum
 {
@@ -716,11 +716,12 @@ static const Steinberg_uint32 Steinberg_kPrintfBufferSize = 4096;
 static const Steinberg_Vst_ParamID Steinberg_Vst_kNoParamId = 0xFFFFFFFF;
 static const Steinberg_Vst_ParamID Steinberg_Vst_kMinParamId = 0;
 static const Steinberg_Vst_ParamID Steinberg_Vst_kMaxParamId = 0x7FFFFFFF;
-static const Steinberg_FIDString Steinberg_Vst_SDKVersionString = "VST 3.7.13";
+static const Steinberg_FIDString Steinberg_Vst_SDKVersionString = "VST 3.7.14";
 static const Steinberg_uint32 Steinberg_Vst_SDKVersionMajor = 3;
 static const Steinberg_uint32 Steinberg_Vst_SDKVersionMinor = 7;
-static const Steinberg_uint32 Steinberg_Vst_SDKVersionSub = 13;
-static const Steinberg_uint32 Steinberg_Vst_SDKVersion = ((3 << 16) | (7 << 8) | 13);
+static const Steinberg_uint32 Steinberg_Vst_SDKVersionSub = 14;
+static const Steinberg_uint32 Steinberg_Vst_SDKVersion = ((3 << 16) | (7 << 8) | 14);
+static const Steinberg_uint32 Steinberg_Vst_SDKVersion_3_7_14 = 0x03070E;
 static const Steinberg_uint32 Steinberg_Vst_SDKVersion_3_7_13 = 0x03070D;
 static const Steinberg_uint32 Steinberg_Vst_SDKVersion_3_7_12 = 0x03070C;
 static const Steinberg_uint32 Steinberg_Vst_SDKVersion_3_7_11 = 0x03070B;
@@ -1560,7 +1561,7 @@ struct Steinberg_ViewRect
 };
 
 /*----------------------------------------------------------------------------------------------------------------------
-Source: "pluginterfaces/vst/ivstnoteexpression.h", line 73 */
+Source: "pluginterfaces/vst/ivstnoteexpression.h", line 72 */
 
 struct Steinberg_Vst_NoteExpressionValueDescription
 {
@@ -1571,7 +1572,7 @@ struct Steinberg_Vst_NoteExpressionValueDescription
 };
 
 /*----------------------------------------------------------------------------------------------------------------------
-Source: "pluginterfaces/vst/ivstnoteexpression.h", line 94 */
+Source: "pluginterfaces/vst/ivstnoteexpression.h", line 93 */
 
 struct Steinberg_Vst_NoteExpressionValueEvent
 {
@@ -1581,7 +1582,7 @@ struct Steinberg_Vst_NoteExpressionValueEvent
 };
 
 /*----------------------------------------------------------------------------------------------------------------------
-Source: "pluginterfaces/vst/ivstnoteexpression.h", line 108 */
+Source: "pluginterfaces/vst/ivstnoteexpression.h", line 107 */
 
 struct Steinberg_Vst_NoteExpressionTextEvent
 {
@@ -1592,7 +1593,7 @@ struct Steinberg_Vst_NoteExpressionTextEvent
 };
 
 /*----------------------------------------------------------------------------------------------------------------------
-Source: "pluginterfaces/vst/ivstnoteexpression.h", line 128 */
+Source: "pluginterfaces/vst/ivstnoteexpression.h", line 127 */
 
 struct Steinberg_Vst_NoteExpressionTypeInfo
 {
@@ -1607,7 +1608,7 @@ struct Steinberg_Vst_NoteExpressionTypeInfo
 };
 
 /*----------------------------------------------------------------------------------------------------------------------
-Source: "pluginterfaces/vst/ivstnoteexpression.h", line 217 */
+Source: "pluginterfaces/vst/ivstnoteexpression.h", line 221 */
 
 struct Steinberg_Vst_KeyswitchInfo
 {
@@ -1622,7 +1623,7 @@ struct Steinberg_Vst_KeyswitchInfo
 };
 
 /*----------------------------------------------------------------------------------------------------------------------
-Source: "pluginterfaces/vst/ivstphysicalui.h", line 61 */
+Source: "pluginterfaces/vst/ivstphysicalui.h", line 60 */
 
 struct Steinberg_Vst_PhysicalUIMap
 {
@@ -1631,7 +1632,7 @@ struct Steinberg_Vst_PhysicalUIMap
 };
 
 /*----------------------------------------------------------------------------------------------------------------------
-Source: "pluginterfaces/vst/ivstphysicalui.h", line 77 */
+Source: "pluginterfaces/vst/ivstphysicalui.h", line 76 */
 
 struct Steinberg_Vst_PhysicalUIMapList
 {
@@ -1899,7 +1900,7 @@ struct Steinberg_Vst_IContextMenuItem
 };
 
 /*----------------------------------------------------------------------------------------------------------------------
-Source: "pluginterfaces/vst/ivstdataexchange.h", line 42 */
+Source: "pluginterfaces/vst/ivstdataexchange.h", line 45 */
 
 struct Steinberg_Vst_DataExchangeBlock
 {
@@ -2192,7 +2193,7 @@ typedef struct Steinberg_ISizeableStream
 static const Steinberg_TUID Steinberg_ISizeableStream_iid = SMTG_INLINE_UID (0x04F9549E, 0xE02F4E6E, 0x87E86A87, 0x47F4E17F);
 
 /*----------------------------------------------------------------------------------------------------------------------
-Source: "pluginterfaces/vst/ivstnoteexpression.h", line 165 */
+Source: "pluginterfaces/vst/ivstnoteexpression.h", line 168 */
 
 typedef struct Steinberg_Vst_INoteExpressionControllerVtbl
 {
@@ -2217,7 +2218,7 @@ typedef struct Steinberg_Vst_INoteExpressionController
 static const Steinberg_TUID Steinberg_Vst_INoteExpressionController_iid = SMTG_INLINE_UID (0xB7F8F859, 0x41234872, 0x91169581, 0x4F3721A3);
 
 /*----------------------------------------------------------------------------------------------------------------------
-Source: "pluginterfaces/vst/ivstnoteexpression.h", line 246 */
+Source: "pluginterfaces/vst/ivstnoteexpression.h", line 250 */
 
 typedef struct Steinberg_Vst_IKeyswitchControllerVtbl
 {
@@ -2240,7 +2241,7 @@ typedef struct Steinberg_Vst_IKeyswitchController
 static const Steinberg_TUID Steinberg_Vst_IKeyswitchController_iid = SMTG_INLINE_UID (0x1F2F76D3, 0xBFFB4B96, 0xB99527A5, 0x5EBCCEF4);
 
 /*----------------------------------------------------------------------------------------------------------------------
-Source: "pluginterfaces/vst/ivstphysicalui.h", line 149 */
+Source: "pluginterfaces/vst/ivstphysicalui.h", line 148 */
 
 typedef struct Steinberg_Vst_INoteExpressionPhysicalUIMappingVtbl
 {
@@ -2433,7 +2434,7 @@ typedef struct Steinberg_Vst_IAttributeList
 static const Steinberg_TUID Steinberg_Vst_IAttributeList_iid = SMTG_INLINE_UID (0x1E5F0AEB, 0xCC7F4533, 0xA2544011, 0x38AD5EE4);
 
 /*----------------------------------------------------------------------------------------------------------------------
-Source: "pluginterfaces/vst/ivstattributes.h", line 134 */
+Source: "pluginterfaces/vst/ivstattributes.h", line 135 */
 
 typedef struct Steinberg_Vst_IStreamAttributesVtbl
 {
@@ -2612,7 +2613,7 @@ typedef struct Steinberg_Vst_IEditController
 static const Steinberg_TUID Steinberg_Vst_IEditController_iid = SMTG_INLINE_UID (0xDCD7BBE3, 0x7742448D, 0xA874AACC, 0x979C759E);
 
 /*----------------------------------------------------------------------------------------------------------------------
-Source: "pluginterfaces/vst/ivsteditcontroller.h", line 576 */
+Source: "pluginterfaces/vst/ivsteditcontroller.h", line 575 */
 
 typedef struct Steinberg_Vst_IEditController2Vtbl
 {
@@ -2636,7 +2637,7 @@ typedef struct Steinberg_Vst_IEditController2
 static const Steinberg_TUID Steinberg_Vst_IEditController2_iid = SMTG_INLINE_UID (0x7F4EFE59, 0xF3204967, 0xAC27A3AE, 0xAFB63038);
 
 /*----------------------------------------------------------------------------------------------------------------------
-Source: "pluginterfaces/vst/ivsteditcontroller.h", line 660 */
+Source: "pluginterfaces/vst/ivsteditcontroller.h", line 659 */
 
 typedef struct Steinberg_Vst_IMidiMappingVtbl
 {
@@ -2658,7 +2659,7 @@ typedef struct Steinberg_Vst_IMidiMapping
 static const Steinberg_TUID Steinberg_Vst_IMidiMapping_iid = SMTG_INLINE_UID (0xDF0FF9F7, 0x49B74669, 0xB63AB732, 0x7ADBF5E5);
 
 /*----------------------------------------------------------------------------------------------------------------------
-Source: "pluginterfaces/vst/ivsteditcontroller.h", line 709 */
+Source: "pluginterfaces/vst/ivsteditcontroller.h", line 708 */
 
 typedef struct Steinberg_Vst_IEditControllerHostEditingVtbl
 {
@@ -2681,7 +2682,7 @@ typedef struct Steinberg_Vst_IEditControllerHostEditing
 static const Steinberg_TUID Steinberg_Vst_IEditControllerHostEditing_iid = SMTG_INLINE_UID (0xC1271208, 0x70594098, 0xB9DD34B3, 0x6BB0195E);
 
 /*----------------------------------------------------------------------------------------------------------------------
-Source: "pluginterfaces/vst/ivsteditcontroller.h", line 736 */
+Source: "pluginterfaces/vst/ivsteditcontroller.h", line 735 */
 
 typedef struct Steinberg_Vst_IComponentHandlerSystemTimeVtbl
 {
@@ -2911,7 +2912,7 @@ typedef struct Steinberg_Vst_ChannelContext_IInfoListener
 static const Steinberg_TUID Steinberg_Vst_ChannelContext_IInfoListener_iid = SMTG_INLINE_UID (0x0F194781, 0x8D984ADA, 0xBBA0C1EF, 0xC011D8D0);
 
 /*----------------------------------------------------------------------------------------------------------------------
-Source: "pluginterfaces/vst/ivstprefetchablesupport.h", line 79 */
+Source: "pluginterfaces/vst/ivstprefetchablesupport.h", line 78 */
 
 typedef struct Steinberg_Vst_IPrefetchableSupportVtbl
 {
@@ -2933,7 +2934,7 @@ typedef struct Steinberg_Vst_IPrefetchableSupport
 static const Steinberg_TUID Steinberg_Vst_IPrefetchableSupport_iid = SMTG_INLINE_UID (0x8AE54FDA, 0xE93046B9, 0xA28555BC, 0xDC98E21E);
 
 /*----------------------------------------------------------------------------------------------------------------------
-Source: "pluginterfaces/vst/ivstdataexchange.h", line 93 */
+Source: "pluginterfaces/vst/ivstdataexchange.h", line 96 */
 
 typedef struct Steinberg_Vst_IDataExchangeHandlerVtbl
 {
@@ -2958,7 +2959,7 @@ typedef struct Steinberg_Vst_IDataExchangeHandler
 static const Steinberg_TUID Steinberg_Vst_IDataExchangeHandler_iid = SMTG_INLINE_UID (0x36D551BD, 0x6FF54F08, 0xB48E830D, 0x8BD5A03B);
 
 /*----------------------------------------------------------------------------------------------------------------------
-Source: "pluginterfaces/vst/ivstdataexchange.h", line 168 */
+Source: "pluginterfaces/vst/ivstdataexchange.h", line 171 */
 
 typedef struct Steinberg_Vst_IDataExchangeReceiverVtbl
 {
