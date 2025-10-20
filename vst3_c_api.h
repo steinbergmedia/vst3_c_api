@@ -110,6 +110,9 @@ typedef Steinberg_uint32 Steinberg_Vst_PrefetchableSupport;
 typedef Steinberg_uint32 Steinberg_Vst_DataExchangeQueueID;
 typedef Steinberg_uint32 Steinberg_Vst_DataExchangeBlockID;
 typedef Steinberg_uint32 Steinberg_Vst_DataExchangeUserContextID;
+typedef Steinberg_uint8 Steinberg_Vst_MidiGroup;
+typedef Steinberg_uint8 Steinberg_Vst_MidiChannel;
+typedef Steinberg_int32 Steinberg_Vst_BusIndex;
 
 
 /*----------------------------------------------------------------------------------------------------------------------
@@ -164,6 +167,8 @@ struct Steinberg_Vst_IInterAppAudioPresetManager;
 struct Steinberg_Vst_IAudioProcessor;
 struct Steinberg_Vst_IAudioPresentationLatency;
 struct Steinberg_Vst_IProcessContextRequirements;
+struct Steinberg_Vst_IMidiMapping2;
+struct Steinberg_Vst_IMidiLearn2;
 struct Steinberg_Vst_IHostApplication;
 struct Steinberg_Vst_IVst3ToVst2Wrapper;
 struct Steinberg_Vst_IVst3ToAUWrapper;
@@ -188,6 +193,7 @@ struct Steinberg_Vst_IParameterChanges;
 struct Steinberg_ViewRect;
 struct Steinberg_Vst_NoteExpressionValueDescription;
 struct Steinberg_Vst_NoteExpressionValueEvent;
+struct Steinberg_Vst_NoteExpressionIntValueEvent;
 struct Steinberg_Vst_NoteExpressionTextEvent;
 struct Steinberg_Vst_NoteExpressionTypeInfo;
 struct Steinberg_Vst_KeyswitchInfo;
@@ -217,6 +223,11 @@ struct Steinberg_Vst_DataExchangeBlock;
 struct Steinberg_Vst_ProcessSetup;
 struct Steinberg_Vst_AudioBusBuffers;
 struct Steinberg_Vst_ProcessData;
+struct Steinberg_Vst_Midi2Controller;
+struct Steinberg_Vst_Midi2ControllerParamIDAssignment;
+struct Steinberg_Vst_Midi2ControllerParamIDAssignmentList;
+struct Steinberg_Vst_Midi1ControllerParamIDAssignment;
+struct Steinberg_Vst_Midi1ControllerParamIDAssignmentList;
 struct Steinberg_Vst_UnitInfo;
 struct Steinberg_Vst_ProgramListInfo;
 
@@ -292,7 +303,7 @@ typedef enum
 } Steinberg_Vst_NoteExpressionTypeIDs;
 
 /*----------------------------------------------------------------------------------------------------------------------
-Source: "pluginterfaces/vst/ivstnoteexpression.h", line 138 */
+Source: "pluginterfaces/vst/ivstnoteexpression.h", line 152 */
 
 typedef enum
 {
@@ -303,7 +314,7 @@ typedef enum
 } Steinberg_Vst_NoteExpressionTypeInfo_NoteExpressionTypeFlags;
 
 /*----------------------------------------------------------------------------------------------------------------------
-Source: "pluginterfaces/vst/ivstnoteexpression.h", line 205 */
+Source: "pluginterfaces/vst/ivstnoteexpression.h", line 219 */
 
 typedef enum
 {
@@ -523,6 +534,7 @@ typedef enum
     Steinberg_Vst_Event_EventTypes_kNoteExpressionTextEvent = 5,
     Steinberg_Vst_Event_EventTypes_kChordEvent = 6,
     Steinberg_Vst_Event_EventTypes_kScaleEvent = 7,
+    Steinberg_Vst_Event_EventTypes_kNoteExpressionIntValueEvent = 8,
     Steinberg_Vst_Event_EventTypes_kLegacyMIDICCOutEvent = 65535
 } Steinberg_Vst_Event_EventTypes;
 
@@ -606,7 +618,15 @@ typedef enum
     Steinberg_Vst_ControllerNumbers_kCountCtrlNumber,
     Steinberg_Vst_ControllerNumbers_kCtrlProgramChange = 130,
     Steinberg_Vst_ControllerNumbers_kCtrlPolyPressure = 131,
-    Steinberg_Vst_ControllerNumbers_kCtrlQuarterFrame = 132
+    Steinberg_Vst_ControllerNumbers_kCtrlQuarterFrame = 132,
+    Steinberg_Vst_ControllerNumbers_kSystemSongSelect = 133,
+    Steinberg_Vst_ControllerNumbers_kSystemSongPointer = 134,
+    Steinberg_Vst_ControllerNumbers_kSystemCableSelect = 135,
+    Steinberg_Vst_ControllerNumbers_kSystemTuneRequest = 136,
+    Steinberg_Vst_ControllerNumbers_kSystemMidiClockStart = 137,
+    Steinberg_Vst_ControllerNumbers_kSystemMidiClockContinue = 138,
+    Steinberg_Vst_ControllerNumbers_kSystemMidiClockStop = 139,
+    Steinberg_Vst_ControllerNumbers_kSystemActiveSensing = 140
 } Steinberg_Vst_ControllerNumbers;
 
 /*----------------------------------------------------------------------------------------------------------------------
@@ -712,15 +732,17 @@ static const Steinberg_FIDString Steinberg_kPlatformTypeHIView = "HIView";
 static const Steinberg_FIDString Steinberg_kPlatformTypeNSView = "NSView";
 static const Steinberg_FIDString Steinberg_kPlatformTypeUIView = "UIView";
 static const Steinberg_FIDString Steinberg_kPlatformTypeX11EmbedWindowID = "X11EmbedWindowID";
+static const Steinberg_FIDString Steinberg_kPlatformTypeWaylandSurfaceID = "WaylandSurfaceID";
 static const Steinberg_uint32 Steinberg_kPrintfBufferSize = 4096;
 static const Steinberg_Vst_ParamID Steinberg_Vst_kNoParamId = 0xFFFFFFFF;
 static const Steinberg_Vst_ParamID Steinberg_Vst_kMinParamId = 0;
 static const Steinberg_Vst_ParamID Steinberg_Vst_kMaxParamId = 0x7FFFFFFF;
-static const Steinberg_FIDString Steinberg_Vst_SDKVersionString = "VST 3.7.14";
+static const Steinberg_FIDString Steinberg_Vst_SDKVersionString = "VST 3.8.0";
 static const Steinberg_uint32 Steinberg_Vst_SDKVersionMajor = 3;
-static const Steinberg_uint32 Steinberg_Vst_SDKVersionMinor = 7;
-static const Steinberg_uint32 Steinberg_Vst_SDKVersionSub = 14;
-static const Steinberg_uint32 Steinberg_Vst_SDKVersion = ((3 << 16) | (7 << 8) | 14);
+static const Steinberg_uint32 Steinberg_Vst_SDKVersionMinor = 8;
+static const Steinberg_uint32 Steinberg_Vst_SDKVersionSub = 0;
+static const Steinberg_uint32 Steinberg_Vst_SDKVersion = ((3 << 16) | (8 << 8) | 0);
+static const Steinberg_uint32 Steinberg_Vst_SDKVersion_3_8_0 = 0x030800;
 static const Steinberg_uint32 Steinberg_Vst_SDKVersion_3_7_14 = 0x03070E;
 static const Steinberg_uint32 Steinberg_Vst_SDKVersion_3_7_13 = 0x03070D;
 static const Steinberg_uint32 Steinberg_Vst_SDKVersion_3_7_12 = 0x03070C;
@@ -1584,6 +1606,16 @@ struct Steinberg_Vst_NoteExpressionValueEvent
 /*----------------------------------------------------------------------------------------------------------------------
 Source: "pluginterfaces/vst/ivstnoteexpression.h", line 107 */
 
+struct Steinberg_Vst_NoteExpressionIntValueEvent
+{
+    Steinberg_Vst_NoteExpressionTypeID typeId;
+    Steinberg_int32 noteId;
+    Steinberg_uint64 value;
+};
+
+/*----------------------------------------------------------------------------------------------------------------------
+Source: "pluginterfaces/vst/ivstnoteexpression.h", line 121 */
+
 struct Steinberg_Vst_NoteExpressionTextEvent
 {
     Steinberg_Vst_NoteExpressionTypeID typeId;
@@ -1593,7 +1625,7 @@ struct Steinberg_Vst_NoteExpressionTextEvent
 };
 
 /*----------------------------------------------------------------------------------------------------------------------
-Source: "pluginterfaces/vst/ivstnoteexpression.h", line 127 */
+Source: "pluginterfaces/vst/ivstnoteexpression.h", line 141 */
 
 struct Steinberg_Vst_NoteExpressionTypeInfo
 {
@@ -1608,7 +1640,7 @@ struct Steinberg_Vst_NoteExpressionTypeInfo
 };
 
 /*----------------------------------------------------------------------------------------------------------------------
-Source: "pluginterfaces/vst/ivstnoteexpression.h", line 221 */
+Source: "pluginterfaces/vst/ivstnoteexpression.h", line 235 */
 
 struct Steinberg_Vst_KeyswitchInfo
 {
@@ -1872,6 +1904,7 @@ struct Steinberg_Vst_Event
         struct Steinberg_Vst_PolyPressureEvent Steinberg_Vst_Event_polyPressure;
         struct Steinberg_Vst_NoteExpressionValueEvent Steinberg_Vst_Event_noteExpressionValue;
         struct Steinberg_Vst_NoteExpressionTextEvent Steinberg_Vst_Event_noteExpressionText;
+        struct Steinberg_Vst_NoteExpressionIntValueEvent Steinberg_Vst_Event_noteExpressionIntValue;
         struct Steinberg_Vst_ChordEvent Steinberg_Vst_Event_chord;
         struct Steinberg_Vst_ScaleEvent Steinberg_Vst_Event_scale;
         struct Steinberg_Vst_LegacyMIDICCOutEvent Steinberg_Vst_Event_midiCCOut;
@@ -1954,6 +1987,57 @@ struct Steinberg_Vst_ProcessData
 };
 
 /*----------------------------------------------------------------------------------------------------------------------
+Source: "pluginterfaces/vst/ivstmidimapping2.h", line 41 */
+
+struct Steinberg_Vst_Midi2Controller
+{
+    Steinberg_uint8 bank;
+    Steinberg_TBool registered;
+    Steinberg_uint8 index;
+    Steinberg_TBool reserved;
+};
+
+/*----------------------------------------------------------------------------------------------------------------------
+Source: "pluginterfaces/vst/ivstmidimapping2.h", line 50 */
+
+struct Steinberg_Vst_Midi2ControllerParamIDAssignment
+{
+    Steinberg_Vst_ParamID pId;
+    Steinberg_Vst_BusIndex busIndex;
+    Steinberg_Vst_MidiChannel channel;
+    struct Steinberg_Vst_Midi2Controller controller;
+};
+
+/*----------------------------------------------------------------------------------------------------------------------
+Source: "pluginterfaces/vst/ivstmidimapping2.h", line 59 */
+
+struct Steinberg_Vst_Midi2ControllerParamIDAssignmentList
+{
+    Steinberg_uint32 count;
+    struct Steinberg_Vst_Midi2ControllerParamIDAssignment* map;
+};
+
+/*----------------------------------------------------------------------------------------------------------------------
+Source: "pluginterfaces/vst/ivstmidimapping2.h", line 66 */
+
+struct Steinberg_Vst_Midi1ControllerParamIDAssignment
+{
+    Steinberg_Vst_ParamID pId;
+    Steinberg_Vst_BusIndex busIndex;
+    Steinberg_Vst_MidiChannel channel;
+    Steinberg_Vst_CtrlNumber controller;
+};
+
+/*----------------------------------------------------------------------------------------------------------------------
+Source: "pluginterfaces/vst/ivstmidimapping2.h", line 75 */
+
+struct Steinberg_Vst_Midi1ControllerParamIDAssignmentList
+{
+    Steinberg_uint32 count;
+    struct Steinberg_Vst_Midi1ControllerParamIDAssignment* map;
+};
+
+/*----------------------------------------------------------------------------------------------------------------------
 Source: "pluginterfaces/vst/ivstunits.h", line 44 */
 
 struct Steinberg_Vst_UnitInfo
@@ -1980,7 +2064,7 @@ struct Steinberg_Vst_ProgramListInfo
 ----------------------------------------------------------------------------------------------------------------------*/
 
 /*----------------------------------------------------------------------------------------------------------------------
-Source: "pluginterfaces/base/funknown.h", line 370 */
+Source: "pluginterfaces/base/funknown.h", line 374 */
 
 typedef struct Steinberg_FUnknownVtbl
 {
@@ -2021,7 +2105,7 @@ typedef struct Steinberg_IPlugViewContentScaleSupport
 static const Steinberg_TUID Steinberg_IPlugViewContentScaleSupport_iid = SMTG_INLINE_UID (0x65ED9690, 0x8AC44525, 0x8AADEF7A, 0x72EA703F);
 
 /*----------------------------------------------------------------------------------------------------------------------
-Source: "pluginterfaces/gui/iplugview.h", line 128 */
+Source: "pluginterfaces/gui/iplugview.h", line 134 */
 
 typedef struct Steinberg_IPlugViewVtbl
 {
@@ -2054,7 +2138,7 @@ typedef struct Steinberg_IPlugView
 static const Steinberg_TUID Steinberg_IPlugView_iid = SMTG_INLINE_UID (0x5BC32507, 0xD06049EA, 0xA6151B52, 0x2B755B29);
 
 /*----------------------------------------------------------------------------------------------------------------------
-Source: "pluginterfaces/gui/iplugview.h", line 202 */
+Source: "pluginterfaces/gui/iplugview.h", line 208 */
 
 typedef struct Steinberg_IPlugFrameVtbl
 {
@@ -2076,7 +2160,7 @@ typedef struct Steinberg_IPlugFrame
 static const Steinberg_TUID Steinberg_IPlugFrame_iid = SMTG_INLINE_UID (0x367FAF01, 0xAFA94693, 0x8D4DA2A0, 0xED0882A3);
 
 /*----------------------------------------------------------------------------------------------------------------------
-Source: "pluginterfaces/gui/iplugview.h", line 228 */
+Source: "pluginterfaces/gui/iplugview.h", line 234 */
 
 typedef struct Steinberg_Linux_IEventHandlerVtbl
 {
@@ -2098,7 +2182,7 @@ typedef struct Steinberg_Linux_IEventHandler
 static const Steinberg_TUID Steinberg_Linux_IEventHandler_iid = SMTG_INLINE_UID (0x561E65C9, 0x13A0496F, 0x813A2C35, 0x654D7983);
 
 /*----------------------------------------------------------------------------------------------------------------------
-Source: "pluginterfaces/gui/iplugview.h", line 244 */
+Source: "pluginterfaces/gui/iplugview.h", line 250 */
 
 typedef struct Steinberg_Linux_ITimerHandlerVtbl
 {
@@ -2120,7 +2204,7 @@ typedef struct Steinberg_Linux_ITimerHandler
 static const Steinberg_TUID Steinberg_Linux_ITimerHandler_iid = SMTG_INLINE_UID (0x10BDD94F, 0x41424774, 0x821FAD8F, 0xECA72CA9);
 
 /*----------------------------------------------------------------------------------------------------------------------
-Source: "pluginterfaces/gui/iplugview.h", line 272 */
+Source: "pluginterfaces/gui/iplugview.h", line 278 */
 
 typedef struct Steinberg_Linux_IRunLoopVtbl
 {
@@ -2193,7 +2277,7 @@ typedef struct Steinberg_ISizeableStream
 static const Steinberg_TUID Steinberg_ISizeableStream_iid = SMTG_INLINE_UID (0x04F9549E, 0xE02F4E6E, 0x87E86A87, 0x47F4E17F);
 
 /*----------------------------------------------------------------------------------------------------------------------
-Source: "pluginterfaces/vst/ivstnoteexpression.h", line 168 */
+Source: "pluginterfaces/vst/ivstnoteexpression.h", line 182 */
 
 typedef struct Steinberg_Vst_INoteExpressionControllerVtbl
 {
@@ -2218,7 +2302,7 @@ typedef struct Steinberg_Vst_INoteExpressionController
 static const Steinberg_TUID Steinberg_Vst_INoteExpressionController_iid = SMTG_INLINE_UID (0xB7F8F859, 0x41234872, 0x91169581, 0x4F3721A3);
 
 /*----------------------------------------------------------------------------------------------------------------------
-Source: "pluginterfaces/vst/ivstnoteexpression.h", line 250 */
+Source: "pluginterfaces/vst/ivstnoteexpression.h", line 264 */
 
 typedef struct Steinberg_Vst_IKeyswitchControllerVtbl
 {
@@ -2704,7 +2788,7 @@ typedef struct Steinberg_Vst_IComponentHandlerSystemTime
 static const Steinberg_TUID Steinberg_Vst_IComponentHandlerSystemTime_iid = SMTG_INLINE_UID (0xF9E53056, 0xD1554CD5, 0xB7695E1B, 0x7B0F7745);
 
 /*----------------------------------------------------------------------------------------------------------------------
-Source: "pluginterfaces/vst/ivstevents.h", line 196 */
+Source: "pluginterfaces/vst/ivstevents.h", line 198 */
 
 typedef struct Steinberg_Vst_IEventListVtbl
 {
@@ -3152,6 +3236,54 @@ typedef struct Steinberg_Vst_IProcessContextRequirements
 } Steinberg_Vst_IProcessContextRequirements;
 
 static const Steinberg_TUID Steinberg_Vst_IProcessContextRequirements_iid = SMTG_INLINE_UID (0x2A654303, 0xEF764E3D, 0x95B5FE83, 0x730EF6D0);
+
+/*----------------------------------------------------------------------------------------------------------------------
+Source: "pluginterfaces/vst/ivstmidimapping2.h", line 97 */
+
+typedef struct Steinberg_Vst_IMidiMapping2Vtbl
+{
+    /* methods derived from "Steinberg_FUnknown": */
+    Steinberg_tresult (SMTG_STDMETHODCALLTYPE* queryInterface) (void* thisInterface, const Steinberg_TUID iid, void** obj);
+    Steinberg_uint32 (SMTG_STDMETHODCALLTYPE* addRef) (void* thisInterface);
+    Steinberg_uint32 (SMTG_STDMETHODCALLTYPE* release) (void* thisInterface);
+
+    /* methods defined in "Steinberg_Vst_IMidiMapping2": */
+    Steinberg_uint32 (SMTG_STDMETHODCALLTYPE* getNumMidi2ControllerAssignments) (void* thisInterface, Steinberg_Vst_BusDirections direction);
+    Steinberg_tresult (SMTG_STDMETHODCALLTYPE* getMidi2ControllerAssignments) (void* thisInterface, Steinberg_Vst_BusDirections direction, const struct Steinberg_Vst_Midi2ControllerParamIDAssignmentList* list);
+    Steinberg_uint32 (SMTG_STDMETHODCALLTYPE* getNumMidi1ControllerAssignments) (void* thisInterface, Steinberg_Vst_BusDirections direction);
+    Steinberg_tresult (SMTG_STDMETHODCALLTYPE* getMidi1ControllerAssignments) (void* thisInterface, Steinberg_Vst_BusDirections direction, const struct Steinberg_Vst_Midi1ControllerParamIDAssignmentList* list);
+
+} Steinberg_Vst_IMidiMapping2Vtbl;
+
+typedef struct Steinberg_Vst_IMidiMapping2
+{
+    struct Steinberg_Vst_IMidiMapping2Vtbl* lpVtbl;
+} Steinberg_Vst_IMidiMapping2;
+
+static const Steinberg_TUID Steinberg_Vst_IMidiMapping2_iid = SMTG_INLINE_UID (0x6DE14B88, 0x03F94F09, 0xA2552F0F, 0x9326593E);
+
+/*----------------------------------------------------------------------------------------------------------------------
+Source: "pluginterfaces/vst/ivstmidimapping2.h", line 157 */
+
+typedef struct Steinberg_Vst_IMidiLearn2Vtbl
+{
+    /* methods derived from "Steinberg_FUnknown": */
+    Steinberg_tresult (SMTG_STDMETHODCALLTYPE* queryInterface) (void* thisInterface, const Steinberg_TUID iid, void** obj);
+    Steinberg_uint32 (SMTG_STDMETHODCALLTYPE* addRef) (void* thisInterface);
+    Steinberg_uint32 (SMTG_STDMETHODCALLTYPE* release) (void* thisInterface);
+
+    /* methods defined in "Steinberg_Vst_IMidiLearn2": */
+    Steinberg_tresult (SMTG_STDMETHODCALLTYPE* onLiveMidi2ControllerInput) (void* thisInterface, Steinberg_Vst_BusIndex index, Steinberg_Vst_MidiChannel channel, struct Steinberg_Vst_Midi2Controller midiCC);
+    Steinberg_tresult (SMTG_STDMETHODCALLTYPE* onLiveMidi1ControllerInput) (void* thisInterface, Steinberg_Vst_BusIndex index, Steinberg_Vst_MidiChannel channel, Steinberg_Vst_CtrlNumber midiCC);
+
+} Steinberg_Vst_IMidiLearn2Vtbl;
+
+typedef struct Steinberg_Vst_IMidiLearn2
+{
+    struct Steinberg_Vst_IMidiLearn2Vtbl* lpVtbl;
+} Steinberg_Vst_IMidiLearn2;
+
+static const Steinberg_TUID Steinberg_Vst_IMidiLearn2_iid = SMTG_INLINE_UID (0xF07E498A, 0x78864327, 0x8B431CED, 0xA3C553FC);
 
 /*----------------------------------------------------------------------------------------------------------------------
 Source: "pluginterfaces/vst/ivsthostapplication.h", line 35 */
